@@ -1,3 +1,16 @@
+const SESSION_KEY = "bekantor_session_id";
+
+let sessionId = localStorage.getItem(SESSION_KEY);
+
+if (!sessionId) {
+  sessionId =
+    Date.now().toString() +
+    "-" +
+    Math.random().toString(36).substring(2);
+
+  localStorage.setItem(SESSION_KEY, sessionId);
+}
+
 const form = document.getElementById("chat-form");
 const input = document.getElementById("message-input");
 const chat = document.getElementById("chat");
@@ -6,8 +19,6 @@ function addMessage(text, type) {
   const message = document.createElement("div");
 
   message.classList.add("message", type);
-
-  // textContent evita interpretar HTML recibido del modelo.
   message.textContent = text;
 
   chat.appendChild(message);
@@ -44,11 +55,12 @@ form.addEventListener("submit", async (event) => {
 
       body: JSON.stringify({
         message: text,
+        sessionId: sessionId,
       }),
     });
 
     if (!response.ok) {
-      throw new Error("Error del servidor");
+      throw new Error(`Error HTTP: ${response.status}`);
     }
 
     const data = await response.json();
@@ -56,6 +68,8 @@ form.addEventListener("submit", async (event) => {
     loading.textContent = data.response;
 
   } catch (error) {
+    console.error(error);
+
     loading.textContent =
       "No se pudo conectar con BEKANTOR NODE.";
   }

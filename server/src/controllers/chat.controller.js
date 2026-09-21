@@ -1,8 +1,13 @@
 import { generateResponse } from "../services/inference.service.js";
 
+import {
+  getConversation,
+  addMessage,
+} from "../services/conversation.service.js";
+
 export async function chat(req, res) {
   try {
-    const { message } = req.body;
+    const { message, sessionId } = req.body;
 
     if (!message) {
       return res.status(400).json({
@@ -10,11 +15,34 @@ export async function chat(req, res) {
       });
     }
 
-    const response = await generateResponse(message);
+    if (!sessionId) {
+      return res.status(400).json({
+        error: "El campo sessionId es obligatorio",
+      });
+    }
+
+    addMessage(
+      sessionId,
+      "user",
+      message
+    );
+
+    const conversation =
+      getConversation(sessionId);
+
+    const response =
+      await generateResponse(conversation);
+
+    addMessage(
+      sessionId,
+      "assistant",
+      response
+    );
 
     res.json({
       response,
     });
+
   } catch (error) {
     console.error(error);
 

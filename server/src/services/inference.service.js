@@ -1,10 +1,25 @@
+import "dotenv/config";
+
+import { nodeConfig } from "../config/node.config.js";
+
 const OLLAMA_URL =
   process.env.OLLAMA_URL || "http://127.0.0.1:11434";
 
 const MODEL =
   process.env.OLLAMA_MODEL || "qwen3:0.6b";
 
-export async function generateResponse(message) {
+function cleanOutput(text = "") {
+  // Defensa adicional por si el modelo devuelve etiquetas de pensamiento.
+  if (text.includes("</think>")) {
+    return text.split("</think>").pop().trim();
+  }
+
+  return text
+    .replace(/<think>[\s\S]*?<\/think>/g, "")
+    .trim();
+}
+
+export async function generateResponse(messages) {
   const response = await fetch(`${OLLAMA_URL}/api/chat`, {
     method: "POST",
 
@@ -17,9 +32,13 @@ export async function generateResponse(message) {
 
       messages: [
         {
-          role: "user",
-          content: message,
+          role: "system",
+          content: `${nodeConfig.systemPrompt}
+
+ /no_think`,
         },
+
+        ...messages,
       ],
 
       stream: false,
@@ -28,10 +47,14 @@ export async function generateResponse(message) {
   });
 
   if (!response.ok) {
-    throw new Error(`Ollama error: ${response.status}`);
+    const error = await response.text();
+
+    throw new Error(
+      `Ollama error ${response.status}: ${error}`
+    );
   }
 
   const data = await response.json();
 
-  return data.message.content;
+  return cleanOutput(data.message?.content);
 }
