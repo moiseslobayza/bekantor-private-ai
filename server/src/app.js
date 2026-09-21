@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import chatRouter from "./routes/chat.routes.js";
+import pharmacyRouter from "./routes/pharmacy.routes.js";
 
 dotenv.config();
 
@@ -28,6 +29,12 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/chat", chatRouter);
+app.use("/api/farmacia", pharmacyRouter);
+
+app.use((error, req, res, next) => {
+  if (error) return res.status(400).json({ error: error.message || "Error al cargar el archivo." });
+  return next();
+});
 
 const PORT = process.env.PORT || 3000;
 

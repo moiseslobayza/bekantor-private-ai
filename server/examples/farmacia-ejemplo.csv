@@ -1,0 +1,6 @@
+sku,producto,categoria,fecha,unidades_vendidas,importe_venta,stock_actual
+PARA-500,Paracetamol 500 mg,Analgésicos,2026-09-01,18,45000,24
+VITA-C-1G,Vitamina C 1 g,Vitaminas,2026-09-01,9,31500,65
+SHAMP-400,Shampoo neutro 400 ml,Cuidado personal,2026-09-02,4,28000,12
+PARA-500,Paracetamol 500 mg,Analgésicos,2026-09-03,22,55000,2
+GASA-10,Gasa estéril x10,Primeros auxilios,2026-09-03,6,9600,140
