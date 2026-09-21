@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BEKANTOR Private AI</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header>
+      <h1>BEKANTOR</h1>
+      <p>Private AI</p>
+      <span>NODE #0000</span>
+    </header>
+
+    <section id="chat" class="chat">
+      <div class="message assistant">
+        BEKANTOR NODE conectado. ¿En qué puedo ayudarte?
+      </div>
+    </section>
+
+    <form id="chat-form">
+      <input
+        id="message-input"
+        type="text"
+        placeholder="Escribí un mensaje..."
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit">
+        Enviar
+      </button>
+    </form>
+
+  </main>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
