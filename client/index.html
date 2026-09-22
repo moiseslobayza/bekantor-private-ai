@@ -19,6 +19,18 @@
       <span>NODE #0000</span>
     </header>
 
+    <section class="import-panel" aria-labelledby="import-title">
+      <div>
+        <h2 id="import-title">Datos de farmacia</h2>
+        <p>Importá un CSV local para comenzar. Los datos permanecen en este nodo.</p>
+      </div>
+      <form id="import-form" class="import-form">
+        <input id="csv-file" type="file" accept=".csv,text/csv" required>
+        <button type="submit">Importar CSV</button>
+      </form>
+      <p id="import-status" class="import-status">Aún no hay datos importados.</p>
+    </section>
+
     <section id="chat" class="chat">
       <div class="message assistant">
         BEKANTOR NODE conectado. ¿En qué puedo ayudarte?

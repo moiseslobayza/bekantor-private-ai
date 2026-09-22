@@ -38,6 +38,19 @@ header span {
   color: #777;
 }
 
+.import-panel {
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+  background: #171717;
+}
+
+.import-panel h2 { margin: 0; font-size: 17px; }
+.import-panel p { margin: 6px 0 0; color: #aaa; font-size: 14px; }
+.import-form { padding: 12px 0 0; border: 0; }
+.import-form input { padding: 9px; font-size: 14px; }
+.import-form button { min-height: 42px; }
+.import-status { min-height: 18px; }
+
 .chat {
   flex: 1;
   overflow-y: auto;
