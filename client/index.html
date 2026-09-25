@@ -19,6 +19,16 @@
       <span>NODE #0000</span>
     </header>
 
+    <section class="node-status" aria-labelledby="node-status-title">
+      <h2 id="node-status-title">Estado</h2>
+      <div class="status-items">
+        <span id="status-node">Nodo: comprobando...</span>
+        <span id="status-model">Modelo: comprobando...</span>
+        <span id="status-data">Datos: comprobando...</span>
+      </div>
+      <p id="status-detail"></p>
+    </section>
+
     <section class="import-panel" aria-labelledby="import-title">
       <div>
         <h2 id="import-title">Datos de farmacia</h2>
@@ -28,10 +38,33 @@
         <input id="csv-file" type="file" accept=".csv,text/csv" required>
         <button type="submit">Importar CSV</button>
       </form>
+      <div id="import-preview" class="import-preview" aria-live="polite"></div>
       <p id="import-status" class="import-status">Aún no hay datos importados.</p>
     </section>
 
+    <section class="dashboard-panel" aria-labelledby="dashboard-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="dashboard-title">Dashboard operativo</h2>
+          <p id="dashboard-period">Cargando período analizado...</p>
+        </div>
+        <button id="refresh-dashboard" type="button">Actualizar</button>
+      </div>
+      <div class="metric-cards">
+        <article class="metric-card"><span>Ventas totales</span><strong id="sales-total">—</strong></article>
+        <article class="metric-card"><span>Unidades vendidas</span><strong id="units-sold">—</strong></article>
+        <article class="metric-card"><span>Stock bajo</span><strong id="low-stock-count">—</strong></article>
+      </div>
+      <div id="dashboard-status" class="dashboard-status"></div>
+      <div class="dashboard-lists">
+        <article class="dashboard-list"><h3>Productos más vendidos</h3><div id="top-products"></div></article>
+        <article class="dashboard-list"><h3>Stock bajo</h3><div id="low-stock-products"></div></article>
+        <article class="dashboard-list"><h3>Baja rotación</h3><div id="low-rotation-products"></div></article>
+      </div>
+    </section>
+
     <section id="chat" class="chat">
+      <h2 class="section-title">Chat</h2>
       <div class="message assistant">
         BEKANTOR NODE conectado. ¿En qué puedo ayudarte?
       </div>

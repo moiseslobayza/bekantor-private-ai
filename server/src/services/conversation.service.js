@@ -4,6 +4,7 @@ const MAX_MESSAGES = 20;
 
 export function getConversation(sessionId) {
   if (!conversations.has(sessionId)) {
+    if (conversations.size >= 500) conversations.delete(conversations.keys().next().value);
     conversations.set(sessionId, []);
   }
 

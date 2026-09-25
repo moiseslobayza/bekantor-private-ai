@@ -1,12 +1,7 @@
-import "dotenv/config";
+import "../config/env.js";
 
 import { nodeConfig } from "../config/node.config.js";
-
-const OLLAMA_URL =
-  process.env.OLLAMA_URL || "http://127.0.0.1:11434";
-
-const MODEL =
-  process.env.OLLAMA_MODEL || "qwen3:0.6b";
+import { modelName as MODEL, ollamaUrl as OLLAMA_URL, markInferenceError } from "./ollama-status.service.js";
 
 function cleanOutput(text = "") {
   // Defensa adicional por si el modelo devuelve etiquetas de pensamiento.
@@ -20,8 +15,11 @@ function cleanOutput(text = "") {
 }
 
 export async function generateResponse(messages) {
+  try {
   const response = await fetch(`${OLLAMA_URL}/api/chat`, {
     method: "POST",
+    redirect: "error",
+    signal: AbortSignal.timeout(20000),
 
     headers: {
       "Content-Type": "application/json",
@@ -56,5 +54,9 @@ export async function generateResponse(messages) {
 
   const data = await response.json();
 
-  return cleanOutput(data.message?.content);
+  if (data.error || typeof data.message?.content !== "string") throw new Error("Respuesta de Ollama inválida");
+  const answer = cleanOutput(data.message.content);
+  if (!answer) throw new Error("Respuesta de Ollama vacía");
+  return answer;
+  } catch (error) { markInferenceError(); throw error; }
 }

@@ -11,7 +11,7 @@ body {
 
 .app {
   width: min(900px, 100%);
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
 
   display: flex;
@@ -50,9 +50,42 @@ header span {
 .import-form input { padding: 9px; font-size: 14px; }
 .import-form button { min-height: 42px; }
 .import-status { min-height: 18px; }
+.node-status { padding: 14px 20px; border-bottom: 1px solid #333; background: #171717; }
+.node-status h2, .section-title { margin: 0 0 10px; font-size: 17px; }
+.status-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.status-items span { padding: 7px 10px; border: 1px solid #383838; border-radius: 7px; font-size: 13px; }
+.node-status p { margin: 8px 0 0; color: #aaa; font-size: 13px; }
+.import-preview { color: #ccc; font-size: 13px; }
+.import-preview ul { margin: 6px 0; padding-left: 20px; }
+.import-preview li { margin: 3px 0; }
+
+.dashboard-panel {
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+  background: #141414;
+}
+
+.section-heading { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.section-heading h2 { margin: 0; font-size: 17px; }
+.section-heading p, .dashboard-status { margin: 6px 0 0; color: #aaa; font-size: 13px; }
+.section-heading button { min-height: 34px; padding: 0 12px; background: #e8e8e8; }
+.metric-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+.metric-card { padding: 12px; border: 1px solid #383838; border-radius: 8px; background: #1c1c1c; }
+.metric-card span { display: block; color: #aaa; font-size: 12px; }
+.metric-card strong { display: block; margin-top: 6px; font-size: 20px; }
+.dashboard-lists { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.dashboard-list { min-width: 0; padding: 12px; border: 1px solid #383838; border-radius: 8px; background: #1c1c1c; }
+.dashboard-list h3 { margin: 0 0 8px; font-size: 13px; }
+.product-list { margin: 0; padding: 0; list-style: none; }
+.product-list li { padding: 7px 0; border-top: 1px solid #333; font-size: 13px; line-height: 1.35; }
+.empty-list { margin: 0; color: #888; font-size: 13px; }
+
+@media (max-width: 650px) {
+  .metric-cards, .dashboard-lists { grid-template-columns: 1fr; }
+}
 
 .chat {
-  flex: 1;
+  height: 340px;
   overflow-y: auto;
   padding: 20px;
 
